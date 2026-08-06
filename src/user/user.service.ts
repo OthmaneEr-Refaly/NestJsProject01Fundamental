@@ -33,7 +33,7 @@ export class UserService {
         return user;
       }
 
-      createUser(createUserDto: CreateUserDto) {
+    createUser(createUserDto: CreateUserDto) {
         this.logger.log('Creating a User');
 
         const duplicate = this.users.find(
@@ -74,5 +74,22 @@ export class UserService {
           }
         Object.assign(user, updateUserDto);
         return { data: updateUserDto, message: "User updated successfully"};
+    }
+
+    deleteUser(id: number): User{
+        this.logger.log("Enters deleteUser func");
+        console.log(id);
+
+        const userIndex = this.users.findIndex(user => user.id === id)
+        if (userIndex === -1) {
+            throw new NotFoundException(`User ${id} not found`);
+          }
+
+        console.log(userIndex);
+        const userToBeDeleted = this.users[userIndex];
+
+        this.users.splice(userIndex, 1);
+
+        return userToBeDeleted;
     }
 }
