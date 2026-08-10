@@ -1,10 +1,13 @@
-import { ParseIntPipe, Controller, Get, Put, Post, Query, Param, Body, Delete } from '@nestjs/common';
+import { ParseIntPipe, Controller, Get, 
+    Put, Post, Query, Param, 
+    Body, Delete, UseGuards } from '@nestjs/common';
 import { filter } from 'rxjs';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 import { User } from './user.service';
 import { LoggerService } from './user.logger';
+import { RoleGuard } from 'src/guards/role.guard';
 
 
 
@@ -34,6 +37,7 @@ export class UserController {
     }
 
     @Delete(':id')
+    @UseGuards(RoleGuard)
     deleteUserById(@Param('id') id: number){
         this.logger.log("debugger");
 

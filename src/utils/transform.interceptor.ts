@@ -16,9 +16,5 @@ export class TransformInterceptor<T> implements NestInterceptor {
         data,
     })),
   );
-
-  // return next.handle(){
-
-  // }
   }
 }
